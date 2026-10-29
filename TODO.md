@@ -1,27 +1,32 @@
 # Product roadmap
 
-> Phase 1 code is in progress. The landing/auth shell, profile editor, admin role review, curriculum drafts and publication, lesson reader, daily quiz scoring, and live dashboard queries are implemented. The build passes. Supabase migrations and seed data still need to be applied to a configured project.
+> Current status: Phase 1 is underway. The app shell, auth flows, profile and role review, curriculum CMS, lesson tracking, daily quiz, dashboard, and admin assessment tools are implemented. The hosted Supabase project has the schema and starter data. Google OAuth, production email, analytics, moderation, and deployment still need work.
 
 ## Progress log
 - [x] Created the Next.js and Tailwind shell with Ghana-inspired design tokens.
 - [x] Added email and Google auth actions, verification/reset routes, protected route session refresh, and role-safe signup trigger.
 - [x] Added profile preferences, admin role review, and subject/topic/lesson draft and publish screens.
 - [x] Added lesson completion tracking, dashboard queries, Ghana-time streak calculation, daily quiz scoring RPC, and upcoming exam calendar.
-- [ ] Configure a Supabase project, apply migrations, load seed content, and set environment variables.
+- [x] Added an admin analytics overview and a curriculum draft moderation queue.
+- [x] Connected the hosted Supabase project, applied both migrations, loaded starter content, and configured the local publishable-key environment file.
+- [x] Generated Supabase database types and pinned dependency versions.
+- [x] Added admin authoring and publication for practice questions, daily challenges, and exam dates.
 - [ ] Configure Google OAuth and production email delivery.
-- [ ] Add live content, quiz, and exam management to the admin CMS; finish analytics and moderation.
-> Status: Phase 1 has started. The app shell, Ghana-inspired Tailwind tokens, auth screens/actions, protected route foundation, Supabase migration, and asset prompt are drafted. Installation, Supabase configuration, and runtime verification are still pending.
+- [ ] Add an admin audit trail.
+- [ ] Confirm the full user flows in a Node-enabled local runtime and prepare deployment.
 
 ## Phase 1 — Core platform
-- [ ] Next.js App Router, TypeScript, Tailwind CSS, responsive shell, Ghana-inspired tokens.
-- [ ] Supabase local and hosted environments, migrations, generated database types.
-- [ ] Student, teacher, and parent registration; Google OAuth; email verification; password reset; sign-out; protected routes.
-- [ ] Student profiles, learning preferences, role review, guardian links, achievement records.
-- [ ] Role assignment workflow, row-level security, admin audit trail.
-- [ ] Dashboard: recent lessons, daily quiz, study streak, weak topics, recommendations, upcoming exams.
-- [ ] Admin CMS: users, subjects, topics, lessons, analytics, moderation.
-- [ ] Seed one subject, topic, lesson, and minimal daily quiz for a real dashboard vertical slice.
-- [ ] Configure email delivery, OAuth, and deployment.
+- [x] Next.js App Router, TypeScript, Tailwind CSS, responsive shell, Ghana-inspired tokens.
+- [x] Hosted Supabase schema, migrations, generated database types, and starter seed data.
+- [x] Student, teacher, and parent registration code; email verification; password reset; sign-out; protected routes.
+- [x] Student profiles, learning preferences, and role review; guardian links and achievement records are modeled.
+- [x] Role assignment workflow and row-level security.
+- [x] Dashboard: recent lessons, daily quiz, study streak, weak topics, recommendations, upcoming exams.
+- [x] Admin CMS for users, subjects, topics, lessons, questions, daily challenges, and exams.
+- [x] Admin analytics and curriculum moderation queue.
+- [ ] Admin audit trail.
+- [x] Seed subject, topic, lesson, daily quiz, and upcoming revision session.
+- [ ] Configure Google OAuth, production email delivery, local Supabase, and deployment.
 
 ## Phase 2 — Learning platform
 - [ ] Rich-text lessons with images, video, math formulas, interactive examples.

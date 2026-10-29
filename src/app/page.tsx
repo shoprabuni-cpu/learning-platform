@@ -1,9 +1,28 @@
+import Image from "next/image";
 import Link from "next/link";
 
-const features = [
-  { number: "01", title: "Learn at your pace", text: "Clear lessons, practical examples, and study resources built around your curriculum." },
-  { number: "02", title: "Practice with purpose", text: "Short quizzes help you spot what you know and where to focus next." },
-  { number: "03", title: "See your progress", text: "A steady view of your effort, achievements, and next steps keeps learning moving." },
+const learningMoments = [
+  {
+    image: "/images/lp-editorial-study.png",
+    alt: "A student concentrating on schoolwork at a desk.",
+    eyebrow: "At your pace",
+    title: "Space to focus",
+    description: "Take one clear step at a time with lessons you can return to whenever you need.",
+  },
+  {
+    image: "/images/lp-editorial-classroom.png",
+    alt: "A teacher helping students work through a mathematics lesson.",
+    eyebrow: "With guidance",
+    title: "Help along the way",
+    description: "Build confidence with explanations and examples that make new ideas easier to follow.",
+  },
+  {
+    image: "/images/lp-editorial-collaboration.png",
+    alt: "Students sharing ideas as they study together.",
+    eyebrow: "Together",
+    title: "Learning is shared",
+    description: "Make room for questions, practice, and the small wins that keep learning moving.",
+  },
 ];
 
 export default function HomePage() {
@@ -14,18 +33,18 @@ export default function HomePage() {
           <span className="grid size-10 place-items-center rounded-2xl bg-brand-green text-sm font-black text-white">L</span>
           <span className="text-base font-bold tracking-tight">Learning Platform</span>
         </Link>
-        <nav className="flex items-center gap-3">
+        <nav className="flex items-center gap-3" aria-label="Account navigation">
           <Link href="/login" className="hidden rounded-full px-5 py-3 text-sm font-semibold text-ink transition hover:bg-white sm:inline-flex">Log in</Link>
           <Link href="/register" className="rounded-full bg-brand-green px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-green-dark">Get started <span aria-hidden="true">↗</span></Link>
         </nav>
       </header>
 
-      <section className="mx-auto grid max-w-7xl gap-12 px-6 pb-20 pt-12 lg:grid-cols-[1.08fr_.92fr] lg:items-center lg:px-10 lg:pb-28 lg:pt-20">
+      <section className="mx-auto grid max-w-7xl items-center gap-10 px-6 pb-16 pt-7 sm:gap-12 lg:grid-cols-[.9fr_1.1fr] lg:px-10 lg:pb-24 lg:pt-12">
         <div className="relative z-10">
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-brand-green/15 bg-white px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-brand-green">
             <span className="size-2 rounded-full bg-brand-gold" />Built for the way you learn
           </div>
-          <h1 className="max-w-3xl text-5xl font-semibold leading-[1.04] tracking-[-0.055em] text-ink sm:text-6xl lg:text-7xl">
+          <h1 className="max-w-2xl text-5xl font-semibold leading-[1.04] tracking-[-0.055em] text-ink sm:text-6xl lg:text-7xl">
             Small steps today. <span className="text-brand-green">Big confidence</span> tomorrow.
           </h1>
           <p className="mt-7 max-w-xl text-lg leading-8 text-muted">Lessons, practice, and progress in one welcoming place—made for learners, families, teachers, and schools in Ghana.</p>
@@ -33,48 +52,80 @@ export default function HomePage() {
             <Link href="/register" className="rounded-full bg-brand-green px-6 py-4 text-sm font-bold text-white shadow-[0_12px_28px_-14px_rgba(0,107,63,.7)] transition hover:-translate-y-0.5 hover:bg-brand-green-dark">Start learning <span aria-hidden="true">→</span></Link>
             <Link href="/login" className="rounded-full border border-line bg-white px-6 py-4 text-sm font-bold transition hover:border-brand-green/35">I already have an account</Link>
           </div>
-          <div className="mt-12 flex items-center gap-4 border-t border-line pt-6">
-            <div className="flex -space-x-2" aria-hidden="true">
-              <span className="grid size-9 place-items-center rounded-full border-2 border-paper bg-[#e6c2a5] text-xs font-bold">S</span>
-              <span className="grid size-9 place-items-center rounded-full border-2 border-paper bg-[#d9b48e] text-xs font-bold">T</span>
-              <span className="grid size-9 place-items-center rounded-full border-2 border-paper bg-[#9a694f] text-xs font-bold text-white">P</span>
-            </div>
-            <p className="text-sm text-muted"><span className="font-semibold text-ink">For every part of the journey.</span><br />Students, families, and educators.</p>
-          </div>
+          <p className="mt-8 border-t border-line pt-5 text-sm text-muted"><span className="font-semibold text-ink">For every part of the journey.</span> Students, families, and educators.</p>
         </div>
 
-        <div className="relative mx-auto w-full max-w-xl">
-          <div className="absolute -right-12 -top-10 size-44 rounded-full bg-brand-gold/25 blur-3xl" />
-          <div className="absolute -bottom-10 -left-12 size-48 rounded-full bg-brand-green/10 blur-3xl" />
-          <div className="relative rounded-[2rem] border border-white bg-white p-4 shadow-[0_32px_100px_-48px_rgba(23,34,28,.35)] sm:p-6">
-            <div className="flex items-center justify-between border-b border-line px-2 pb-4">
-              <div><p className="text-xs font-semibold uppercase tracking-[0.14em] text-muted">Your learning space</p><p className="mt-1 text-lg font-bold">A little progress adds up.</p></div>
-              <span className="grid size-10 place-items-center rounded-full bg-[#fff7d7] text-xl" aria-hidden="true">✦</span>
+        <div className="relative">
+          <div className="absolute -right-8 -top-8 size-40 rounded-full bg-brand-gold/30 blur-3xl" aria-hidden="true" />
+          <div className="absolute -bottom-8 -left-8 size-44 rounded-full bg-brand-green/15 blur-3xl" aria-hidden="true" />
+          <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] bg-[#f4efe0] shadow-[0_32px_100px_-48px_rgba(23,34,28,.45)] sm:aspect-[16/10] lg:aspect-[1.18/1]">
+            <div className="absolute inset-0 hidden md:block">
+              <Image
+                src="/images/lp-hero-desktop.png"
+                alt="Learners studying together in a bright Ghanaian classroom."
+                fill
+                sizes="(max-width: 1024px) 100vw, 58vw"
+                className="object-cover object-[72%_center]"
+              />
             </div>
-            <div className="mt-5 rounded-3xl bg-brand-green p-6 text-white sm:p-8">
-              <div className="flex items-start justify-between">
-                <div><p className="text-xs font-bold uppercase tracking-[0.16em] text-white/70">Today’s focus</p><h2 className="mt-3 max-w-xs text-2xl font-semibold leading-tight">Make sense of fractions</h2><p className="mt-2 text-sm text-white/75">Mathematics · 12 min lesson</p></div>
-                <span className="grid size-11 place-items-center rounded-2xl bg-brand-gold text-xl text-ink" aria-hidden="true">÷</span>
-              </div>
-              <div className="mt-8 flex items-center gap-3"><div className="h-2 flex-1 overflow-hidden rounded-full bg-white/20"><div className="h-full w-[68%] rounded-full bg-brand-gold" /></div><span className="text-xs font-semibold text-white/80">68%</span></div>
-              <div className="mt-6 inline-flex rounded-full bg-white px-4 py-2.5 text-sm font-bold text-brand-green">Continue lesson <span className="ml-2" aria-hidden="true">→</span></div>
+            <div className="absolute inset-0 md:hidden">
+              <Image
+                src="/images/lp-hero-mobile.png"
+                alt="A student smiling as she studies in a sunlit classroom."
+                fill
+                sizes="100vw"
+                className="object-cover object-center"
+              />
             </div>
-            <div className="mt-4 grid grid-cols-2 gap-4">
-              <div className="rounded-3xl border border-line bg-paper p-5"><div className="flex items-center justify-between"><span className="text-sm font-semibold">Study streak</span><span aria-hidden="true">🔥</span></div><p className="mt-4 text-3xl font-semibold tracking-tight">5 <span className="text-sm font-medium text-muted">days</span></p><p className="mt-1 text-xs text-muted">You’re building a good habit.</p></div>
-              <div className="rounded-3xl border border-line bg-paper p-5"><div className="flex items-center justify-between"><span className="text-sm font-semibold">Next up</span><span aria-hidden="true">✎</span></div><p className="mt-4 text-base font-bold">Daily quiz</p><p className="mt-1 text-xs text-muted">5 questions · about 4 min</p></div>
+            <div className="absolute inset-0 bg-gradient-to-t from-ink/55 via-transparent to-transparent" aria-hidden="true" />
+            <div className="absolute bottom-4 left-4 right-4 rounded-2xl border border-white/70 bg-white/95 p-4 shadow-lg backdrop-blur sm:bottom-6 sm:left-6 sm:right-6 sm:p-5">
+              <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-brand-green">A little progress adds up</p>
+              <p className="mt-1 text-sm font-semibold text-ink sm:text-base">Find your next step, and keep going.</p>
             </div>
-            <p className="px-2 pt-4 text-center text-[11px] text-muted">A preview of the student dashboard</p>
           </div>
-          <div className="absolute -left-5 top-1/3 hidden rounded-2xl border border-line bg-white px-4 py-3 shadow-lg sm:block"><p className="text-[10px] font-bold uppercase tracking-wider text-muted">This week</p><p className="mt-1 text-sm font-bold text-brand-green">You showed up 4 times</p></div>
         </div>
       </section>
 
-      <section className="border-y border-line bg-white">
-        <div className="mx-auto grid max-w-7xl gap-8 px-6 py-14 md:grid-cols-3 lg:px-10 lg:py-16">
-          {features.map((feature) => <article key={feature.number}><p className="text-xs font-bold tracking-[0.18em] text-brand-red">{feature.number}</p><h2 className="mt-4 text-xl font-semibold tracking-tight">{feature.title}</h2><p className="mt-3 max-w-sm text-sm leading-6 text-muted">{feature.text}</p></article>)}
+      <section className="border-y border-line bg-white" aria-labelledby="learning-moments-title">
+        <div className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-20">
+          <div className="max-w-2xl">
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-brand-red">A steady way forward</p>
+            <h2 id="learning-moments-title" className="mt-3 text-3xl font-semibold tracking-tight text-ink sm:text-4xl">Learning fits into real life.</h2>
+            <p className="mt-4 text-base leading-7 text-muted">Study on your own, ask for guidance, and share what you discover along the way.</p>
+          </div>
+          <div className="mt-9 grid gap-5 md:grid-cols-3">
+            {learningMoments.map((moment) => (
+              <article key={moment.title} className="overflow-hidden rounded-[1.75rem] border border-line bg-paper">
+                <div className="relative aspect-[4/3] overflow-hidden bg-[#f4efe0]">
+                  <Image src={moment.image} alt={moment.alt} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover transition duration-500 hover:scale-[1.03]" />
+                </div>
+                <div className="p-5 sm:p-6">
+                  <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-brand-green">{moment.eyebrow}</p>
+                  <h3 className="mt-2 text-xl font-semibold tracking-tight text-ink">{moment.title}</h3>
+                  <p className="mt-2 text-sm leading-6 text-muted">{moment.description}</p>
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
-      <footer className="mx-auto flex max-w-7xl flex-col gap-3 px-6 py-8 text-xs text-muted sm:flex-row sm:items-center sm:justify-between lg:px-10">
+
+      <section className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-20" aria-labelledby="mathematics-title">
+        <div className="grid items-center gap-8 overflow-hidden rounded-[2rem] border border-[#eee3bd] bg-[#fff8df] p-6 sm:p-10 lg:grid-cols-[1.05fr_.95fr] lg:p-12">
+          <div className="max-w-xl">
+            <p className="text-xs font-bold uppercase tracking-[0.18em] text-brand-green">Start with a subject</p>
+            <h2 id="mathematics-title" className="mt-3 text-3xl font-semibold tracking-tight text-ink sm:text-4xl">Make sense of Mathematics.</h2>
+            <p className="mt-4 text-base leading-7 text-muted">Work through ideas with clear lessons, practical examples, and short quizzes that help you see what you know.</p>
+            <Link href="/register" className="mt-7 inline-flex rounded-full bg-brand-green px-6 py-4 text-sm font-bold text-white transition hover:bg-brand-green-dark">Explore learning <span className="ml-2" aria-hidden="true">→</span></Link>
+          </div>
+          <div className="relative mx-auto aspect-square w-full max-w-[22rem]">
+            <div className="absolute inset-[12%] rounded-full bg-[#f3e6b3]" aria-hidden="true" />
+            <Image src="/images/lp-subject-mathematics.png" alt="" fill sizes="(max-width: 1024px) 80vw, 352px" className="object-contain" />
+          </div>
+        </div>
+      </section>
+
+      <footer className="mx-auto flex max-w-7xl flex-col gap-3 border-t border-line px-6 py-8 text-xs text-muted sm:flex-row sm:items-center sm:justify-between lg:px-10">
         <p>© {new Date().getFullYear()} Learning Platform</p><p>Made for steady progress and stronger learning.</p>
       </footer>
     </main>

@@ -28,5 +28,5 @@ Never put a Supabase service-role key in browser code or a NEXT_PUBLIC_ variable
 
 ## Current scope
 
-The current Phase 1 slice includes the public entry page, Supabase auth flows, profile preferences, role review, curriculum draft/publish screens, a lesson reader, daily quiz scoring, upcoming exam calendar, protected dashboard, core schema, and project roadmap. Live use still requires Supabase configuration and applying the migrations. The remaining backlog is in TODO.md.
+The current Phase 1 slice includes the public entry page, Supabase auth flows, profile preferences, role review, curriculum draft/publish screens, a lesson reader, daily quiz scoring, an upcoming exam calendar, a protected dashboard, and admin tools for practice questions, daily challenges, and exams. The hosted Supabase schema and starter records are configured; local credentials stay in the ignored .env.local file. Google OAuth, production email, analytics, moderation, and deployment remain in TODO.md.
 

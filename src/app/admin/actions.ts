@@ -82,6 +82,7 @@ export async function setContentPublishedAction(formData: FormData) {
   const kind = value(formData, "kind");
   const id = value(formData, "id");
   const published = value(formData, "published") === "true";
+  const returnToModeration = value(formData, "origin") === "moderation";
   const table = kind === "subject" ? "subjects" : kind === "topic" ? "topics" : kind === "lesson" ? "lessons" : null;
   if (!table || !id) redirect("/admin/content?error=input");
 
@@ -89,5 +90,7 @@ export async function setContentPublishedAction(formData: FormData) {
   const { error } = await supabase.from(table).update({ is_published: published }).eq("id", id);
   if (error) redirect("/admin/content?error=save");
   revalidatePath("/admin/content");
-  redirect("/admin/content?updated=1");
+  revalidatePath("/admin/moderation");
+  revalidatePath("/dashboard");
+  redirect(returnToModeration ? "/admin/moderation?updated=1" : "/admin/content?updated=1");
 }
