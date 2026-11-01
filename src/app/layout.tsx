@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import "./globals.css";
+import "./site.css";
 
 export const metadata: Metadata = {
   title: { default: "Learning Platform", template: "%s | Learning Platform" },
@@ -7,5 +7,11 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en-GH"><body>{children}</body></html>;
+  return (
+    <html lang="en-GH" className="scroll-smooth motion-reduce:scroll-auto">
+      <body className="min-h-screen bg-paper font-sans text-ink antialiased selection:bg-brand-gold selection:text-ink">
+        {children}
+      </body>
+    </html>
+  );
 }

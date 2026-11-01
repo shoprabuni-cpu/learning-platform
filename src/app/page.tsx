@@ -39,12 +39,12 @@ export default function HomePage() {
         </nav>
       </header>
 
-      <section className="mx-auto grid max-w-7xl items-center gap-10 px-6 pb-16 pt-7 sm:gap-12 lg:grid-cols-[.9fr_1.1fr] lg:px-10 lg:pb-24 lg:pt-12">
+      <section className="mx-auto grid max-w-7xl items-center gap-8 px-6 pb-16 pt-7 md:grid-cols-2 lg:gap-12 lg:px-10 lg:pb-24 lg:pt-12">
         <div className="relative z-10">
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-brand-green/15 bg-white px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-brand-green">
             <span className="size-2 rounded-full bg-brand-gold" />Built for the way you learn
           </div>
-          <h1 className="max-w-2xl text-5xl font-semibold leading-[1.04] tracking-[-0.055em] text-ink sm:text-6xl lg:text-7xl">
+          <h1 className="max-w-2xl text-4xl font-semibold leading-[1.04] tracking-[-0.055em] text-ink sm:text-5xl lg:text-7xl">
             Small steps today. <span className="text-brand-green">Big confidence</span> tomorrow.
           </h1>
           <p className="mt-7 max-w-xl text-lg leading-8 text-muted">Lessons, practice, and progress in one welcoming place—made for learners, families, teachers, and schools in Ghana.</p>
@@ -58,23 +58,18 @@ export default function HomePage() {
         <div className="relative">
           <div className="absolute -right-8 -top-8 size-40 rounded-full bg-brand-gold/30 blur-3xl" aria-hidden="true" />
           <div className="absolute -bottom-8 -left-8 size-44 rounded-full bg-brand-green/15 blur-3xl" aria-hidden="true" />
-          <div className="hero-image-frame relative overflow-hidden rounded-[2rem] bg-[#f4efe0] shadow-[0_32px_100px_-48px_rgba(23,34,28,.45)]">
-            <Image
-              src="/images/lp-hero-desktop.png"
-              alt="Learners studying together in a bright Ghanaian classroom."
-              width={1672}
-              height={940}
-              sizes="(min-width: 1024px) 58vw, (min-width: 768px) calc(100vw - 3rem), 0px"
-              className="hero-image-desktop"
-            />
-            <Image
-              src="/images/lp-hero-mobile.png"
-              alt="A student smiling as she studies in a sunlit classroom."
-              width={1024}
-              height={1536}
-              sizes="(max-width: 767px) calc(100vw - 3rem), 0px"
-              className="hero-image-mobile"
-            />
+          <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] bg-[#f4efe0] shadow-[0_32px_100px_-48px_rgba(23,34,28,.45)] md:aspect-square lg:aspect-[6/5]">
+            <picture className="absolute inset-0 block">
+              <source media="(max-width: 767px)" srcSet="/images/lp-hero-mobile.png" />
+              <Image
+                src="/images/lp-hero-desktop.png"
+                alt="A student and classmates learning in a sunny classroom in Ghana."
+                fill
+                loading="eager"
+                sizes="(max-width: 767px) calc(100vw - 3rem), (max-width: 1023px) 45vw, 40vw"
+                className="object-cover object-[72%_center]"
+              />
+            </picture>
             <div className="absolute inset-0 bg-gradient-to-t from-ink/55 via-transparent to-transparent" aria-hidden="true" />
             <div className="absolute bottom-4 left-4 right-4 rounded-2xl border border-white/70 bg-white/95 p-4 shadow-lg backdrop-blur sm:bottom-6 sm:left-6 sm:right-6 sm:p-5">
               <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-brand-green">A little progress adds up</p>
@@ -94,8 +89,8 @@ export default function HomePage() {
           <div className="mt-9 grid gap-5 md:grid-cols-3">
             {learningMoments.map((moment) => (
               <article key={moment.title} className="overflow-hidden rounded-[1.75rem] border border-line bg-paper">
-                <div className="story-image-frame relative overflow-hidden bg-[#f4efe0]">
-                  <Image src={moment.image} alt={moment.alt} width={1536} height={1024} sizes="(max-width: 768px) calc(100vw - 3rem), 33vw" className="story-card-image transition duration-500 hover:scale-[1.03]" />
+                <div className="relative aspect-[4/3] overflow-hidden bg-[#f4efe0]">
+                  <Image src={moment.image} alt={moment.alt} fill sizes="(max-width: 768px) calc(100vw - 3rem), 33vw" className="object-cover transition duration-500 hover:scale-[1.03]" />
                 </div>
                 <div className="p-5 sm:p-6">
                   <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-brand-green">{moment.eyebrow}</p>
@@ -116,9 +111,9 @@ export default function HomePage() {
             <p className="mt-4 text-base leading-7 text-muted">Work through ideas with clear lessons, practical examples, and short quizzes that help you see what you know.</p>
             <Link href="/register" className="mt-7 inline-flex rounded-full bg-brand-green px-6 py-4 text-sm font-bold text-white transition hover:bg-brand-green-dark">Explore learning <span className="ml-2" aria-hidden="true">→</span></Link>
           </div>
-          <div className="subject-illustration-frame relative mx-auto">
+          <div className="relative mx-auto aspect-square w-full max-w-sm">
             <div className="absolute inset-[12%] rounded-full bg-[#f3e6b3]" aria-hidden="true" />
-            <Image src="/images/lp-subject-mathematics.png" alt="" width={1254} height={1254} sizes="(max-width: 1024px) 80vw, 352px" className="subject-illustration" />
+            <Image src="/images/lp-subject-mathematics.png" alt="" fill sizes="(max-width: 1024px) 80vw, 352px" className="object-contain" />
           </div>
         </div>
       </section>
