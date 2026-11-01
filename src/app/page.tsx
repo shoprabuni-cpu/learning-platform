@@ -58,25 +58,23 @@ export default function HomePage() {
         <div className="relative">
           <div className="absolute -right-8 -top-8 size-40 rounded-full bg-brand-gold/30 blur-3xl" aria-hidden="true" />
           <div className="absolute -bottom-8 -left-8 size-44 rounded-full bg-brand-green/15 blur-3xl" aria-hidden="true" />
-          <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] bg-[#f4efe0] shadow-[0_32px_100px_-48px_rgba(23,34,28,.45)] sm:aspect-[16/10] lg:aspect-[1.18/1]">
-            <div className="absolute inset-0 hidden md:block">
-              <Image
-                src="/images/lp-hero-desktop.png"
-                alt="Learners studying together in a bright Ghanaian classroom."
-                fill
-                sizes="(max-width: 1024px) 100vw, 58vw"
-                className="object-cover object-[72%_center]"
-              />
-            </div>
-            <div className="absolute inset-0 md:hidden">
-              <Image
-                src="/images/lp-hero-mobile.png"
-                alt="A student smiling as she studies in a sunlit classroom."
-                fill
-                sizes="100vw"
-                className="object-cover object-center"
-              />
-            </div>
+          <div className="hero-image-frame relative overflow-hidden rounded-[2rem] bg-[#f4efe0] shadow-[0_32px_100px_-48px_rgba(23,34,28,.45)]">
+            <Image
+              src="/images/lp-hero-desktop.png"
+              alt="Learners studying together in a bright Ghanaian classroom."
+              width={1672}
+              height={940}
+              sizes="(min-width: 1024px) 58vw, (min-width: 768px) calc(100vw - 3rem), 0px"
+              className="hero-image-desktop"
+            />
+            <Image
+              src="/images/lp-hero-mobile.png"
+              alt="A student smiling as she studies in a sunlit classroom."
+              width={1024}
+              height={1536}
+              sizes="(max-width: 767px) calc(100vw - 3rem), 0px"
+              className="hero-image-mobile"
+            />
             <div className="absolute inset-0 bg-gradient-to-t from-ink/55 via-transparent to-transparent" aria-hidden="true" />
             <div className="absolute bottom-4 left-4 right-4 rounded-2xl border border-white/70 bg-white/95 p-4 shadow-lg backdrop-blur sm:bottom-6 sm:left-6 sm:right-6 sm:p-5">
               <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-brand-green">A little progress adds up</p>
@@ -96,8 +94,8 @@ export default function HomePage() {
           <div className="mt-9 grid gap-5 md:grid-cols-3">
             {learningMoments.map((moment) => (
               <article key={moment.title} className="overflow-hidden rounded-[1.75rem] border border-line bg-paper">
-                <div className="relative aspect-[4/3] overflow-hidden bg-[#f4efe0]">
-                  <Image src={moment.image} alt={moment.alt} fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover transition duration-500 hover:scale-[1.03]" />
+                <div className="story-image-frame relative overflow-hidden bg-[#f4efe0]">
+                  <Image src={moment.image} alt={moment.alt} width={1536} height={1024} sizes="(max-width: 768px) calc(100vw - 3rem), 33vw" className="story-card-image transition duration-500 hover:scale-[1.03]" />
                 </div>
                 <div className="p-5 sm:p-6">
                   <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-brand-green">{moment.eyebrow}</p>
@@ -118,9 +116,9 @@ export default function HomePage() {
             <p className="mt-4 text-base leading-7 text-muted">Work through ideas with clear lessons, practical examples, and short quizzes that help you see what you know.</p>
             <Link href="/register" className="mt-7 inline-flex rounded-full bg-brand-green px-6 py-4 text-sm font-bold text-white transition hover:bg-brand-green-dark">Explore learning <span className="ml-2" aria-hidden="true">→</span></Link>
           </div>
-          <div className="relative mx-auto aspect-square w-full max-w-[22rem]">
+          <div className="subject-illustration-frame relative mx-auto">
             <div className="absolute inset-[12%] rounded-full bg-[#f3e6b3]" aria-hidden="true" />
-            <Image src="/images/lp-subject-mathematics.png" alt="" fill sizes="(max-width: 1024px) 80vw, 352px" className="object-contain" />
+            <Image src="/images/lp-subject-mathematics.png" alt="" width={1254} height={1254} sizes="(max-width: 1024px) 80vw, 352px" className="subject-illustration" />
           </div>
         </div>
       </section>
