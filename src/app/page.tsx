@@ -25,6 +25,39 @@ const learningMoments = [
   },
 ];
 
+const subjects = [
+  {
+    title: "Mathematics",
+    image: "/images/lp-subject-mathematics.png",
+    alt: "Mathematics books, a calculator, and a geometry notebook.",
+    description: "Build confidence with numbers and problem solving.",
+  },
+  {
+    title: "English Language",
+    image: "/images/lp-subject-english.png",
+    alt: "Open books, a notebook, and pens for English study.",
+    description: "Grow your reading, writing, and communication skills.",
+  },
+  {
+    title: "Science",
+    image: "/images/lp-subject-science.png",
+    alt: "Science books, a microscope, and a chemistry notebook.",
+    description: "Explore living things, matter, and the world around you.",
+  },
+  {
+    title: "Social Studies",
+    image: "/images/lp-subject-social-studies.png",
+    alt: "A globe, maps, and books for social studies.",
+    description: "Understand people, places, history, and community.",
+  },
+  {
+    title: "ICT",
+    image: "/images/lp-subject-ict.png",
+    alt: "A laptop, tablet, and notebook for ICT learning.",
+    description: "Discover digital skills, devices, and how technology works.",
+  },
+];
+
 export default function HomePage() {
   return (
     <main className="min-h-screen overflow-hidden">
@@ -103,18 +136,25 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-20" aria-labelledby="mathematics-title">
-        <div className="grid items-center gap-8 overflow-hidden rounded-[2rem] border border-[#eee3bd] bg-[#fff8df] p-6 sm:p-10 lg:grid-cols-[1.05fr_.95fr] lg:p-12">
-          <div className="max-w-xl">
-            <p className="text-xs font-bold uppercase tracking-[0.18em] text-brand-green">Start with a subject</p>
-            <h2 id="mathematics-title" className="mt-3 text-3xl font-semibold tracking-tight text-ink sm:text-4xl">Make sense of Mathematics.</h2>
-            <p className="mt-4 text-base leading-7 text-muted">Work through ideas with clear lessons, practical examples, and short quizzes that help you see what you know.</p>
-            <Link href="/register" className="mt-7 inline-flex rounded-full bg-brand-green px-6 py-4 text-sm font-bold text-white transition hover:bg-brand-green-dark">Explore learning <span className="ml-2" aria-hidden="true">→</span></Link>
-          </div>
-          <div className="relative mx-auto aspect-square w-full max-w-sm">
-            <div className="absolute inset-[12%] rounded-full bg-[#f3e6b3]" aria-hidden="true" />
-            <Image src="/images/lp-subject-mathematics.png" alt="" fill sizes="(max-width: 1024px) 80vw, 352px" className="object-contain" />
-          </div>
+      <section className="mx-auto max-w-7xl px-6 py-16 lg:px-10 lg:py-20" aria-labelledby="subjects-title">
+        <div className="max-w-2xl">
+          <p className="text-xs font-bold uppercase tracking-[0.18em] text-brand-green">Start with a subject</p>
+          <h2 id="subjects-title" className="mt-3 text-3xl font-semibold tracking-tight text-ink sm:text-4xl">Explore the subjects.</h2>
+          <p className="mt-4 text-base leading-7 text-muted">Choose a subject and build understanding through clear lessons and steady practice.</p>
+        </div>
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+          {subjects.map((subject) => (
+            <Link key={subject.title} href="/register" className="group overflow-hidden rounded-[1.5rem] border border-line bg-white transition hover:-translate-y-1 hover:shadow-lg">
+              <div className="relative aspect-[4/3] overflow-hidden bg-[#fff8df]">
+                <Image src={subject.image} alt={subject.alt} fill sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 20vw" className="object-contain p-3 transition duration-500 group-hover:scale-105" />
+              </div>
+              <div className="p-4">
+                <h3 className="font-semibold tracking-tight text-ink">{subject.title}</h3>
+                <p className="mt-2 min-h-12 text-xs leading-5 text-muted">{subject.description}</p>
+                <span className="mt-3 inline-flex text-xs font-bold text-brand-green">Explore subject <span className="ml-1" aria-hidden="true">↗</span></span>
+              </div>
+            </Link>
+          ))}
         </div>
       </section>
 

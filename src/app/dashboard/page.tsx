@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { signOutAction } from "@/app/auth/actions";
@@ -13,6 +14,13 @@ type Topic = { id: string; name: string; subject_id: string };
 type Question = { id: string; prompt: string; options: Option[]; explanation: string; topic_id: string };
 type Lesson = { id: string; title: string; summary: string; topic_id: string; estimated_minutes: number };
 type Exam = { id: string; title: string; scheduled_at: string; subject_id: string | null };
+
+const achievementBadges = [
+  { key: "first-lesson", title: "First lesson", image: "/images/lp-badge-first-lesson.png" },
+  { key: "quiz-master", title: "Quiz master", image: "/images/lp-badge-quiz-master.png" },
+  { key: "study-streak", title: "Study streak", image: "/images/lp-badge-streak.png" },
+  { key: "learning-milestone", title: "Learning milestone", image: "/images/lp-badge-milestone.png" },
+];
 
 function accraDate(date: Date) {
   const parts = new Intl.DateTimeFormat("en-US", {
@@ -62,7 +70,7 @@ export default async function DashboardPage({ searchParams }: { searchParams: Pr
     supabase.from("exam_calendar").select("id,title,scheduled_at,subject_id").gte("scheduled_at", new Date().toISOString()).order("scheduled_at").limit(4),
     supabase.from("learning_activity").select("activity_type,reference_id,occurred_at").eq("user_id", user.id).gte("occurred_at", ninetyDaysAgo).order("occurred_at", { ascending: false }).limit(200),
     supabase.from("quiz_attempts").select("question_id,is_correct,selected_option_key,daily_challenge_id").eq("user_id", user.id).order("submitted_at", { ascending: false }).limit(100),
-    supabase.from("user_achievements").select("id").eq("user_id", user.id),
+    supabase.from("user_achievements").select("id,badge_key").eq("user_id", user.id),
     supabase.from("topics").select("id,name,subject_id").eq("is_published", true).order("sort_order").limit(100),
   ]);
 
@@ -136,6 +144,8 @@ export default async function DashboardPage({ searchParams }: { searchParams: Pr
     month: "short",
   }).format(new Date(value));
   const quizOptions = Array.isArray(dailyQuestion?.options) ? dailyQuestion.options as Option[] : [];
+  const earnedBadgeKeys = new Set((achievementsResult.data ?? []).map((achievement) => achievement.badge_key));
+  const earnedBadgeCount = achievementBadges.filter((badge) => earnedBadgeKeys.has(badge.key)).length;
 
   return <main className="min-h-screen">
     <header className="border-b border-line bg-white"><div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-10">
@@ -165,25 +175,41 @@ export default async function DashboardPage({ searchParams }: { searchParams: Pr
               </div></fieldset>
               <button className="mt-5 rounded-full bg-brand-gold px-5 py-3 text-sm font-bold text-ink hover:bg-[#ffdc43]">Check answer</button>
             </form>}
-          </> : <div className="mt-5 rounded-2xl bg-white/10 p-5"><h2 className="text-xl font-semibold">Your daily quiz is being prepared.</h2><p className="mt-2 text-sm leading-6 text-white/75">A new question will appear here each day. Explore a lesson while you wait.</p></div>}
+          </> : <div className="mt-5 grid items-center gap-3 rounded-2xl bg-white/10 p-4 sm:grid-cols-[9rem_minmax(0,1fr)] sm:gap-4">
+            <Image src="/images/lp-empty-quizzes.png" alt="" width={768} height={512} sizes="(max-width: 639px) 70vw, 144px" className="mx-auto h-24 w-full max-w-56 object-contain" />
+            <div><h2 className="text-xl font-semibold">Your daily quiz is being prepared.</h2><p className="mt-2 text-sm leading-6 text-white/75">A new question will appear here each day. Explore a lesson while you wait.</p></div>
+          </div>}
         </article>
         <article className="flex flex-col justify-between rounded-[1.75rem] border border-line bg-white p-6 sm:p-8">
           <div><p className="text-sm font-semibold text-muted">Study streak</p><p className="mt-4 text-4xl font-semibold tracking-tight">{streak} <span className="text-base font-medium text-muted">{streak === 1 ? "day" : "days"}</span></p><p className="mt-2 text-sm text-muted">{streak ? "You’re building a strong study habit." : "Complete a lesson or quiz to start your streak."}</p></div>
-          <div className="mt-6 border-t border-line pt-5"><p className="text-sm font-semibold">Achievements</p><p className="mt-1 text-sm text-muted">{achievementsResult.data?.length ?? 0} badges earned</p></div>
+          <div className="mt-6 border-t border-line pt-5">
+            <div className="flex items-baseline justify-between gap-2"><p className="text-sm font-semibold">Achievements</p><p className="text-xs text-muted">{earnedBadgeCount} / {achievementBadges.length} earned</p></div>
+            <div className="mt-4 grid grid-cols-4 gap-2">
+              {achievementBadges.map((badge) => {
+                const earned = earnedBadgeKeys.has(badge.key);
+                return <div key={badge.key} className="min-w-0 text-center">
+                  <div role="img" aria-label={`${badge.title} badge, ${earned ? "earned" : "not earned yet"}`} className={`mx-auto grid size-16 place-items-center rounded-full bg-paper ${earned ? "ring-2 ring-brand-gold" : "opacity-40 grayscale"}`}>
+                    <Image src={badge.image} alt="" width={80} height={80} sizes="64px" className="size-full object-contain" />
+                  </div>
+                  <p className="mt-2 text-[10px] font-semibold leading-tight text-muted">{badge.title}</p>
+                </div>;
+              })}
+            </div>
+          </div>
         </article>
       </section>
 
       <section className="mt-5 grid gap-5 lg:grid-cols-3">
         <article className="rounded-[1.75rem] border border-line bg-white p-6 sm:p-7"><div className="flex items-center justify-between"><h2 className="text-lg font-semibold">Pick up learning</h2><span className="text-xl text-brand-green" aria-hidden="true">↗</span></div>
           {recentLessonIds.map((id) => { const lesson = lessonById.get(id); return lesson ? <Link key={id} href={"/lessons/" + lesson.id} className="mt-4 block rounded-2xl bg-paper p-4 transition hover:bg-[#f1f3ec]"><p className="font-semibold">{lesson.title}</p><p className="mt-1 text-xs text-muted">{topicById.get(lesson.topic_id)?.name ?? "Lesson"} · {lesson.estimated_minutes} min</p></Link> : null; })}
-          {!recentLessonIds.some((id) => lessonById.has(id)) && <div className="mt-5 rounded-2xl border border-dashed border-line bg-paper px-4 py-7 text-center"><p className="font-semibold">Your recent lessons will show here</p><p className="mt-1 text-sm text-muted">Complete a lesson to see it in your dashboard.</p></div>}
+          {!recentLessonIds.some((id) => lessonById.has(id)) && <div className="mt-5 rounded-2xl border border-dashed border-line bg-paper px-4 py-4 text-center"><Image src="/images/lp-empty-lessons.png" alt="" width={768} height={512} sizes="(max-width: 639px) 70vw, 240px" className="mx-auto h-24 w-full max-w-60 object-contain" /><p className="mt-2 font-semibold">Your recent lessons will show here</p><p className="mt-1 text-sm text-muted">Complete a lesson to see it in your dashboard.</p></div>}
         </article>
         <article className="rounded-[1.75rem] border border-line bg-white p-6 sm:p-7"><div className="flex items-center justify-between"><h2 className="text-lg font-semibold">Focus topic</h2><span className="text-xl text-brand-red" aria-hidden="true">✦</span></div>
           {weakTopic ? <><p className="mt-5 text-xl font-semibold">{weakTopic.name}</p><p className="mt-2 text-sm leading-6 text-muted">Recent quiz attempts suggest this topic could use another review.</p></> : <><p className="mt-5 text-sm leading-6 text-muted">After a few quiz attempts, your dashboard will highlight topics to revisit.</p><p className="mt-3 text-xs text-muted">{attempts.length} quiz {attempts.length === 1 ? "attempt" : "attempts"} recorded</p></>}
           {recommendation && <Link href={"/lessons/" + recommendation.id} className="mt-5 block rounded-2xl bg-[#fff7d7] p-4"><p className="text-[11px] font-bold uppercase tracking-wide text-[#765600]">Recommended lesson</p><p className="mt-2 font-semibold">{recommendation.title}</p><p className="mt-1 text-xs text-muted">{recommendationTopic?.name} · {recommendation.estimated_minutes} min</p></Link>}
         </article>
         <article className="rounded-[1.75rem] border border-line bg-white p-6 sm:p-7"><div className="flex items-center justify-between"><h2 className="text-lg font-semibold">Upcoming exams</h2><span className="text-xl text-brand-green" aria-hidden="true">✎</span></div>
-          {exams.length ? <div className="mt-4 space-y-3">{exams.map((exam) => <div key={exam.id} className="rounded-2xl bg-paper p-4"><p className="font-semibold">{exam.title}</p><p className="mt-1 text-sm text-muted">{subjectName(exam.subject_id)} · {formattedExamDate(exam.scheduled_at)}</p></div>)}</div> : <div className="mt-5 rounded-2xl border border-dashed border-line bg-paper px-4 py-7 text-center"><p className="font-semibold">No exams scheduled yet</p><p className="mt-1 text-sm text-muted">School and platform exam dates will appear here.</p></div>}
+          {exams.length ? <div className="mt-4 space-y-3">{exams.map((exam) => <div key={exam.id} className="rounded-2xl bg-paper p-4"><p className="font-semibold">{exam.title}</p><p className="mt-1 text-sm text-muted">{subjectName(exam.subject_id)} · {formattedExamDate(exam.scheduled_at)}</p></div>)}</div> : <div className="mt-5 rounded-2xl border border-dashed border-line bg-paper px-4 py-4 text-center"><Image src="/images/lp-empty-exams.png" alt="" width={768} height={512} sizes="(max-width: 639px) 70vw, 220px" className="mx-auto h-24 w-full max-w-56 object-contain" /><p className="mt-2 font-semibold">No exams scheduled yet</p><p className="mt-1 text-sm text-muted">School and platform exam dates will appear here.</p></div>}
         </article>
       </section>
     </div>
